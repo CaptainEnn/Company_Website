@@ -1,0 +1,1 @@
+-- Dữ liệu mẫu (admin mặc định, tin tức, sản phẩm...)

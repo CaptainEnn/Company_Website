@@ -1,0 +1,10 @@
+.env
+app/config/config.local.php
+public/uploads/*/*
+!public/uploads/*/.gitkeep
+.idea/
+.vscode/
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
