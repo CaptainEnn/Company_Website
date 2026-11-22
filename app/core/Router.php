@@ -16,11 +16,12 @@ class Router
     {
         $path = parse_url($uri, PHP_URL_PATH);
         $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
-        if ($base !== '' && strpos($path, $base) === 0) $path = substr($path, strlen($base));
+        if ($base !== '' && ($path === $base || strpos($path, $base . '/') === 0)) $path = substr($path, strlen($base));
         $path = '/' . trim($path, '/');
 
         foreach (self::$routes as $r) {
             if ($r['method'] === $method && preg_match($r['regex'], $path, $m)) {
+                if ($method === 'POST') Csrf::verify();
                 foreach ($r['middleware'] as $mw) { Auth::$mw(); }   // vd: ['requireAdmin']
                 list($class, $action) = explode('@', $r['handler']);
                 $params = array_filter($m, 'is_string', ARRAY_FILTER_USE_KEY);
@@ -28,6 +29,9 @@ class Router
             }
         }
         http_response_code(404);
-        require BASE_PATH . '/app/views/errors/404.php';
+        $viewFile = BASE_PATH . '/app/views/errors/404.php';
+        $title = 'Không tìm thấy trang';
+        $noIndex = true;
+        require BASE_PATH . '/app/views/layouts/main.php';
     }
 }
