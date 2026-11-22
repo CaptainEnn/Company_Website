@@ -1,16 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= e(isset($title) ? $title : config('app.name')) ?></title>
-  <meta name="description" content="<?= e(isset($metaDesc) ? $metaDesc : '') ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+  <title><?= e(isset($title) ? $title . ' | ' . config('app.name') : config('app.name')) ?></title>
+  <meta name="description" content="<?= e($metaDesc ?? 'Website thông tin doanh nghiệp và cổng tài khoản thành viên.') ?>">
+  <?php if (!empty($noIndex)): ?><meta name="robots" content="noindex, nofollow"><?php endif; ?>
+  <link rel="stylesheet" href="<?= e(base_url('assets/css/style.css')) ?>">
+  <script src="<?= e(base_url('assets/js/main.js')) ?>" defer></script>
 </head>
 <body>
-  <?php /* TODO: require partials/header.php */ ?>
-  <main><?php require $viewFile; ?></main>
-  <?php /* TODO: require partials/footer.php */ ?>
-  <script src="<?= base_url('assets/js/main.js') ?>"></script>
+  <a class="skip-link" href="#main">Đến nội dung chính</a>
+  <?php require BASE_PATH . '/app/views/partials/header.php'; ?>
+  <main class="container content" id="main">
+    <?php require BASE_PATH . '/app/views/partials/messages.php'; ?>
+    <?php require $viewFile; ?>
+  </main>
+  <?php require BASE_PATH . '/app/views/partials/footer.php'; ?>
 </body>
 </html>

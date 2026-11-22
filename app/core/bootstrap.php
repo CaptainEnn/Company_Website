@@ -1,32 +1,19 @@
 <?php
+require BASE_PATH . '/app/core/init.php';
+
+ini_set('session.use_strict_mode', '1');
+ini_set('session.use_only_cookies', '1');
+$secure = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+$cookiePath = base_url();
+if (PHP_VERSION_ID >= 70300) {
+    session_set_cookie_params([
+        'path' => $cookiePath, 'secure' => $secure, 'httponly' => true, 'samesite' => 'Lax',
+    ]);
+} else {
+    session_set_cookie_params(0, $cookiePath, '', $secure, true);
+}
 session_start();
-
-$GLOBALS['config'] = require BASE_PATH . '/app/config/config.php';
-
-// Autoload đơn giản (không dùng Composer/framework)
-spl_autoload_register(function ($class) {
-    $dirs = ['core', 'models', 'controllers', 'controllers/admin', 'helpers'];
-    foreach ($dirs as $d) {
-        $f = BASE_PATH . "/app/$d/$class.php";
-        if (file_exists($f)) { require $f; return; }
-    }
-});
-
-function config($key, $default = null) {
-    $v = $GLOBALS['config'];
-    foreach (explode('.', $key) as $k) {
-        if (!is_array($v) || !isset($v[$k])) return $default;
-        $v = $v[$k];
-    }
-    return $v;
-}
-
-function e($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
-
-function base_url($path = '') {
-    $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
-    return $base . '/' . ltrim($path, '/');
-}
+header('X-Content-Type-Options: nosniff');
 
 // Mỗi module một file route -> hạn chế conflict khi merge
 foreach (glob(BASE_PATH . '/app/routes/*.php') as $routeFile) {

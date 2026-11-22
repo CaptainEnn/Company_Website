@@ -1,0 +1,4 @@
+# Guard private paths when the repository sits under XAMPP htdocs.
+RewriteEngine On
+RewriteRule ^(?:app|database|docs|scripts|\.[^/]+)(?:/|$) - [F,NC,L]
+RewriteRule ^(?:README\.md|CONTRIBUTING\.md)$ - [F,NC,L]

@@ -1,1 +1,21 @@
--- 002: site_settings, contacts (TV A)
+USE company_web;
+
+CREATE TABLE IF NOT EXISTS site_settings (
+  setting_key VARCHAR(80) PRIMARY KEY,
+  setting_value TEXT NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS contacts (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NULL,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL,
+  phone VARCHAR(25) NULL,
+  subject VARCHAR(200) NOT NULL,
+  message TEXT NOT NULL,
+  status ENUM('unread','read','replied') NOT NULL DEFAULT 'unread',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+  INDEX (status, created_at)
+) ENGINE=InnoDB;

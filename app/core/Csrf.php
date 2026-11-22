@@ -10,6 +10,6 @@ class Csrf
     public static function verify()
     {
         $t = isset($_POST['_csrf']) ? $_POST['_csrf'] : '';
-        if (!hash_equals(self::token(), $t)) { http_response_code(419); exit('CSRF token invalid'); }
+        if (!is_string($t) || !hash_equals(self::token(), $t)) { http_response_code(403); exit('CSRF token invalid'); }
     }
 }

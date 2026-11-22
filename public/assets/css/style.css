@@ -1,1 +1,90 @@
-/* style chung */
+:root {
+  color: #172338;
+  background: #f3f6fa;
+  font-family: system-ui, sans-serif;
+  line-height: 1.55;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+body:not(.admin-page) { display: flex; flex-direction: column; min-height: 100vh; }
+h1, h2 { line-height: 1.2; margin: 0 0 1rem; font-weight: 700; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.25rem; }
+p { margin: 0 0 1rem; }
+a { color: #174aa3; text-underline-offset: 0.2em; text-decoration: underline; }
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #347bdb;
+  outline-offset: 3px;
+}
+.container { width: min(100% - 2rem, 70rem); margin-inline: auto; }
+.content { flex: 1; padding-block: 2.5rem; }
+.site-header, .site-footer { background: #fff; }
+.site-header { border-bottom: 1px solid #dce4ee; }
+.site-footer { border-top: 1px solid #dce4ee; padding: 1.2rem 0; color: #40516a; }
+.nav-row, .nav-row nav, .pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .85rem; }
+.nav-row { justify-content: space-between; padding-block: .9rem; }
+.brand { color: #142952; font-weight: 750; text-decoration: none; font-size: 1.15rem; }
+form { margin: 0; }
+label:not(.check-label) { display: block; margin: .85rem 0 .35rem; font-weight: 600; }
+input:not([type="hidden"]):not([type="checkbox"]) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: .65rem .75rem;
+  color: #172338;
+  background: #fff;
+  border: 1px solid #8495ad;
+  border-radius: .5rem;
+  font: inherit;
+}
+input[type="file"] { font-size: .9rem; }
+small { color: #40516a; display: block; margin-top: .3rem; }
+button, .button {
+  display: inline-block;
+  padding: .6rem .95rem;
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  background: #244dbc;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+button:hover, .button:hover { filter: brightness(.92); }
+.button-secondary { background: #fff; color: #233b67; border-color: #8495ad; }
+.button-danger { background: #9b242e; }
+.panel form button, .search-form button { margin-top: 1rem; }
+.panel { padding: 1.4rem; border: 1px solid #dce4ee; border-radius: .9rem; background: #fff; min-width: 0; }
+.auth-panel { margin-inline: auto; max-width: 30rem; }
+.auth-panel p { margin: 1rem 0 0; }
+.profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1rem; }
+.avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; }
+.notice { border: 1px solid; padding: .8rem 1rem; border-radius: .5rem; margin: 0 0 1rem; }
+.notice p { margin: 0; }
+.notice ul { list-style: disc; padding-inline-start: 1.5rem; margin: .35rem 0 0; }
+.notice-error { color: #831f29; background: #fff2f3; border-color: #e4a1a5; }
+.notice-success { color: #145633; background: #edfdf3; border-color: #91ccab; }
+.skip-link { position: fixed; z-index: 2; top: .5rem; left: .5rem; background: #fff; padding: .5rem; transform: translateY(-200%); }
+.skip-link:focus { transform: none; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.admin-page { background: #f8fafc; }
+.admin-page aside a { text-decoration: none; }
+.search-form { max-width: 32rem; margin-bottom: 1rem; }
+.account-table { width: 100%; border-collapse: collapse; text-align: left; }
+.account-table th, .account-table td { padding: .75rem 1rem; border-bottom: 1px solid #e1e7ef; }
+.account-table th { background: #f8fafc; white-space: nowrap; }
+.status-active, .status-banned { display: inline-block; padding: .15rem .6rem; border-radius: 2rem; white-space: nowrap; }
+.status-active { color: #145633; background: #e5f8ee; }
+.status-banned { color: #831f29; background: #fce8eb; }
+.account-details { display: grid; grid-template-columns: max-content 1fr; gap: .35rem 1rem; overflow-wrap: anywhere; }
+.account-details dt { font-weight: 600; }
+.account-details dd { margin: 0; }
+.admin-actions, .delete-form { margin-top: 1rem; }
+.check-label { display: flex; align-items: center; gap: .5rem; }
+.check-label input { appearance: auto; }
+@media (min-width: 48rem) {
+  .search-form { display: grid; grid-template-columns: 1fr auto; gap: .35rem .75rem; align-items: center; }
+  .search-form label { grid-column: 1 / -1; }
+  .search-form button { margin-top: 0; }
+}
